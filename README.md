@@ -14,6 +14,7 @@ pip install -r requirements.txt
 
 ### CHOOSE COLUMNS AND PLOT TYPE TO VISUALIZE
 
+<br/>
 <img width="960" alt="Ekran görüntüsü 2023-09-18 121315" src="https://github.com/sadikemreduzgun/dragNdrop-data-visualizer/assets/70113249/2ad102c0-3716-40bc-b839-8690cb770f3a">
 <br/>
 
