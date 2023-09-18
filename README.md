@@ -7,12 +7,15 @@ pip install -r requirements.txt
 
 ## IMAGES
 <br/>
-Main page
+### Main page
 <img width="960" alt="Ekran görüntüsü 2023-09-18 121255" src="https://github.com/sadikemreduzgun/dragNdrop-data-visualizer/assets/70113249/dcc52ace-93b4-4393-8ab9-227ead5c36da">
 <br/>
+
 ### CHOOSE COLUMNS AND PLOT TYPE TO VISUALIZE
 
 <img width="960" alt="Ekran görüntüsü 2023-09-18 121315" src="https://github.com/sadikemreduzgun/dragNdrop-data-visualizer/assets/70113249/2ad102c0-3716-40bc-b839-8690cb770f3a">
 <br/>
+
 ### PLOT
+<br/>
 <img width="960" alt="Ekran görüntüsü 2023-09-18 121338" src="https://github.com/sadikemreduzgun/dragNdrop-data-visualizer/assets/70113249/9264df1f-4609-4e29-ac63-b118ebfd7a70">
