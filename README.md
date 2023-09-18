@@ -7,6 +7,7 @@ pip install -r requirements.txt
 
 ## IMAGES
 <br/>
+
 ### Main page
 <img width="960" alt="Ekran görüntüsü 2023-09-18 121255" src="https://github.com/sadikemreduzgun/dragNdrop-data-visualizer/assets/70113249/dcc52ace-93b4-4393-8ab9-227ead5c36da">
 <br/>
