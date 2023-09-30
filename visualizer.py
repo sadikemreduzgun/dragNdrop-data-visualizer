@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from PIL import Image, ImageTk
 from tkinter import messagebox
 
-
+print(3)
 class DataFrameVisualizer():
 
     def __init__(self, is_test=False):
