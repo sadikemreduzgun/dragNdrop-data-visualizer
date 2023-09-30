@@ -1,4 +1,4 @@
-from ...visualizer import DataFrameVisualizer
+from ..visualizer import DataFrameVisualizer
 
 def test_action():
 
