@@ -9,6 +9,8 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 
 
+print(1)
+
 class DataFrameVisualizer:
 
     def __init__(self):
