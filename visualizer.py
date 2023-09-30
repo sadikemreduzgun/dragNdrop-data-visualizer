@@ -9,9 +9,10 @@ from PIL import Image, ImageTk
 from tkinter import messagebox
 
 
-class DataFrameVisualizer:
+class DataFrameVisualizer():
 
-    def __init__(self):
+    def __init__(self, is_test=False):
+
         self.created = False
 
         self.button_font = 15
@@ -30,23 +31,31 @@ class DataFrameVisualizer:
         """self.text_widget = tk.Text(self.root, wrap=tk.WORD, bg='#FF1493')
         self.text_widget.insert(tk.END, "Please drop your csv file on me.")
         self.text_widget.config(state=tk.DISABLED)"""
-
+        self.is_test = is_test
+        self.exitc = None
         # fill=tk.BOTH, expand=True
         # self.text_widget.pack()
+        # if self.is_test:
 
         self.container = tk.Frame(self.root, bg='#FFFFE0')  # Lila renkli arka plan
-        self.container.pack(fill=tk.BOTH, expand=True)
 
-        self.text_widget = tk.Label(self.container, text="➥\n Please drop your csv file on me. ", wraplength=500, font=("Arial", 18, "bold"),
+        if not self.is_test:
+
+            self.container.pack(fill=tk.BOTH, expand=True)
+
+        self.text_widget = tk.Label(self.container, text="➥\n Please drop your csv file on me. ", wraplength=500,
+                                    font=("Arial", 18, "bold"),
                                     bg='#eee0e5', fg='black')
-        self.text_widget.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+        if not self.is_test:
 
-        self.text_widget.drop_target_register(DND_FILES)
-        self.text_widget.dnd_bind('<<Drop>>', self.handle_drop)
+            self.text_widget.pack(padx=20, pady=20, fill=tk.BOTH, expand=True)
+
+            self.text_widget.drop_target_register(DND_FILES)
+            self.text_widget.dnd_bind('<<Drop>>', self.handle_drop)
 
         # Hover effect eklemek için olay bağlamaları
-        self.text_widget.bind("<Enter>", self.on_enter)
-        self.text_widget.bind("<Leave>", self.on_leave)
+            self.text_widget.bind("<Enter>", self.on_enter)
+            self.text_widget.bind("<Leave>", self.on_leave)
 
         # self.text_widget.drop_target_register(DND_FILES)
         #self.text_widget.dnd_bind('<<Drop>>', self.handle_drop)
@@ -72,6 +81,10 @@ class DataFrameVisualizer:
         self.y_ax = ""
         self.plots_2_data = ["pairplot", "relplot", "lmplot", "displot", "jointplot", "boxplot", "lineplot"]
         self.selected_chart = "pairplot"
+
+        if is_test:
+
+            self.handle_drop(None, True)
 
     def on_enter(self, event):
         self.text_widget.config(bg='#cdc1c5')  # Arka plan rengini maviye değiştir
@@ -156,12 +169,17 @@ class DataFrameVisualizer:
         self.option_x.pack(side=tk.RIGHT, padx=20)
         # self.set_charts()
 
-    def handle_drop(self, event):
-        file = event.data
+    def handle_drop(self, event, is_test=False):
+
+        if is_test:
+            file = "C:\\Users\\ZENBOOK\\PycharmProjects\\drag_drop_tk\\src\\tests\\test_app.csv"
+            pd.read_csv(file)
+
+        else:
+            file = event.data
 
         if file:
             try:
-
                 self.df = pd.read_csv(file)
             except:
                 messagebox.showerror(title="file error", message="please give me a csv file")
@@ -172,8 +190,8 @@ class DataFrameVisualizer:
             self.text_widget.pack_forget()
 
             self.columns = self.df.columns
-            self.columns = self.columns.insert(0, "power")
-            self.columns = self.columns.insert(0, "counter")
+            # self.columns = self.columns.insert(0, "power")
+            # self.columns = self.columns.insert(0, "counter")
 
             # no categorical
             # 2 data
@@ -210,8 +228,8 @@ class DataFrameVisualizer:
 
             self.option_y = tk.OptionMenu(self.root, self.stvar_y, *self.columns, command=self.set_y)
             self.option_y.config(bg='#ADD8E6', fg='black', font=("Arial", self.button_font, "bold"))
-            self.option_y.pack(padx=70, side='left') # side=tk.LEFT,
-            #self.option_y.place(x=self.root_width+100)
+            self.option_y.pack(padx=70, side='left')  # side=tk.LEFT,
+            # self.option_y.place(x=self.root_width+100)
 
             self.option_x = tk.OptionMenu(self.root, self.stvar_x, *self.columns, command=self.set_x)
             self.option_x.config(bg='#ADD8E6', fg='black', font=("Arial", self.button_font, "bold"))
@@ -219,6 +237,11 @@ class DataFrameVisualizer:
             # self.option_x.place(x=self.root_width-100)
 
             self.container.pack_forget()
+
+            if self.is_test:
+                self.y_ax = self.columns[1]
+                print(self.y_ax)
+                self.handle_vis()
 
     def set_labels(self, plot, joint=False):
         if self.x_ax == "counter":
@@ -296,7 +319,7 @@ class DataFrameVisualizer:
         # plot = sns.pairplot(dataframe[[self.x_ax, self.y_ax]])
 
         # plt.show()
-        plot_path = "seaborn_plot.png"
+        plot_path = "../seaborn_plot.png"
 
         print("saved")
         # plt.figure(figsize=(4,2))
@@ -324,6 +347,11 @@ class DataFrameVisualizer:
         self.label.pack(fill=tk.BOTH, expand=True, side=tk.BOTTOM)
         self.back_button.pack(side=tk.LEFT, pady=5, padx=5)
 
+        if self.is_test:
+            # return 0
+            self.exitc = 0
+            self.root.destroy()
+
     def go_back(self):
         self.label.pack_forget()
         # self.text_widget.pack()
@@ -332,3 +360,9 @@ class DataFrameVisualizer:
 
     def run(self):
         self.root.mainloop()
+        return self.exitc
+
+
+# vis = DataFrameVisualizer()
+
+# vis.run()
