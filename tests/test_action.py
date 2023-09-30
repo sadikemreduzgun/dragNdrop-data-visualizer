@@ -1,5 +1,4 @@
-tfrom ...src.ns import DataFrameVisualizer
-
+from ...visualizer import DataFrameVisualizer
 
 def test_action():
 
